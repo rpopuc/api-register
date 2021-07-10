@@ -1,0 +1,74 @@
+{
+	"info": {
+		"_postman_id": "071a38a5-76e6-4c9c-9055-2b5effd4ac16",
+		"name": "Contract from simple Consumer",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "A Consumer",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", () => {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Content-Type is JSON\", () => {",
+							"    pm.expect(pm.response.headers.get('Content-Type')).to.eql('application/json');",
+							"});",
+							"",
+							"const schema = {",
+							"    $ref: \"#/definitions/provider\",",
+							"    definitions: {        ",
+							"        provider: {",
+							"            type: \"object\",",
+							"            required: [ \"id\", \"name\", \"definition\", \"owner\" ],",
+							"            properties: {",
+							"                id: {",
+							"                    type: \"string\",",
+							"                    format: \"uuid\"",
+							"                },",
+							"                name: {",
+							"                    type: \"string\"",
+							"                }",
+							"            }",
+							"        }",
+							"    }  ",
+							"};",
+							"",
+							"pm.test(\"Validate schema\", () => {",
+							"    pm.response.to.have.jsonSchema(schema);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"strictSSL": false
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://register.local/api/v1/providers/03711a77-ce2f-4d93-8193-5cf15fd5e28b",
+					"protocol": "https",
+					"host": [
+						"register",
+						"local"
+					],
+					"path": [
+						"api",
+						"v1",
+						"providers",
+						"03711a77-ce2f-4d93-8193-5cf15fd5e28b"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
