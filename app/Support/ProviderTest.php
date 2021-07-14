@@ -23,7 +23,7 @@ class ProviderTest
         foreach ($provider->consumers as $consumer) {
             $summaries = array_merge(
                 $summaries ?? [],
-                $this->consumerTest->test($provider, $consumer)
+                $this->consumerTest->test($consumer)
             );
         }
 
