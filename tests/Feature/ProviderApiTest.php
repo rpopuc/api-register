@@ -49,8 +49,6 @@ class ProviderApiTest extends TestCase
 
         $response->assertStatus(201);
 
-        // Agora deveria executar isso
-        dump("prism mock -d http://app/api/v1/providers/example_provider.yaml");
-        dump("newman run --env-var 'url=http://localhost:4010' http://app/api/v1/providers/example_provider/consumers/example_consumer.json");
+        // dump("newman run --env-var 'url=http://localhost:4010' http://app/api/v1/providers/example_provider/consumers/example_consumer.json");
     }
 }
