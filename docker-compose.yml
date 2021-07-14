@@ -1,7 +1,7 @@
 version: '3'
 
 services:
-
+    #  newman run --env-var 'url=http://localhost:4010' http://app/api/v1/providers/cf2ecae6-a19f-484a-841d-bd44201b28e4/consumers/c9fbfa64-121a-40f7-af5e-f1f048195bc5.json
     proxy:
       image: traefik:2.0
       volumes:
@@ -54,3 +54,15 @@ services:
     #   volumes:
     #     - ./:/var/www
     #     - ~/.ssh:/home/laradock/.ssh
+
+    newman:
+      image: vdespa/newman
+      volumes:
+        - ./src-contracts:/contracts
+        - ./src-node:/etc/newman
+      entrypoint: [""]
+      ports:
+        - 3000:3000
+      command: >
+        npm run server
+      tty: true

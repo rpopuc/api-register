@@ -9,7 +9,7 @@ class CreateProvidersTable extends Migration
     public function up()
     {
         Schema::create('providers', function (Blueprint $table) {
-            $table->uuid('id')->primary();
+            $table->string('id')->primary();
             $table->string('name')->nullable(false);
             $table->text('description')->nullable(true);
             $table->text('definition')->nullable(false);

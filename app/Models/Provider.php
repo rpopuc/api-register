@@ -11,9 +11,9 @@ class Provider extends Model
 {
     use HasFactory;
     use SoftDeletes;
-    use Uuid;
+    // use Uuid;
 
-    protected $fillable = ['name', 'description', 'definition', 'owner', 'tags'];
+    protected $fillable = ['id', 'name', 'description', 'definition', 'owner', 'tags'];
     protected $dates = ['deleted_at'];
     protected $casts = ['id' => 'string'];
     public $incrementing = false;

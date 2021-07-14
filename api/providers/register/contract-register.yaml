@@ -68,7 +68,7 @@ paths:
         - register_auth:
           - "write:providers"
           - "read:providers"
-  /provider/{providerId}:
+  /providers/{providerId}:
     get:
       tags:
         - "provider"
@@ -169,7 +169,7 @@ paths:
       - register_auth:
         - "write:providers"
         - "read:providers"
-  /provider/{providerId}/consumer:
+  /providers/{providerId}/consumer:
     post:
       tags:
         - "provider"
@@ -201,7 +201,7 @@ paths:
       - register_auth:
         - "write:consumers"
         - "read:consumers"
-  /provider/{providerId}/consumer/{consumerId}:
+  /providers/{providerId}/consumers/{consumerId}:
     get:
       tags:
         - "consumer"
@@ -463,8 +463,7 @@ definitions:
     type: "object"
     properties:
       id:
-        type: "integer"
-        format: "int64"
+        type: "string"
       name:
         type: "string"
       definition:
@@ -475,11 +474,9 @@ definitions:
     type: "object"
     properties:
       id:
-        type: "integer"
-        format: "int64"
+        type: "string"
       providerId:
-        type: "integer"
-        format: "int64"
+        type: "string"
       name:
         type: "string"
       definition:

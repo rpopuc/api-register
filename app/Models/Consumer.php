@@ -11,9 +11,8 @@ class Consumer extends Model
 {
     use HasFactory;
     use SoftDeletes;
-    use Uuid;
 
-    protected $fillable = ['provider_id', 'name', 'description', 'definition', 'owner', 'tags'];
+    protected $fillable = ['id', 'provider_id', 'name', 'description', 'definition', 'owner', 'tags'];
     protected $dates = ['deleted_at'];
     protected $casts = ['id' => 'string'];
     public $incrementing = false;

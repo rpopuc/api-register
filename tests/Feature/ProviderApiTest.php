@@ -19,9 +19,10 @@ class ProviderApiTest extends TestCase
     {
         $fs = new Filesystem();
 
-        $definition = $fs->get(base_path('/docs/contract-register.yaml'));
+        $definition = $fs->get(base_path('/api/providers/register/contract-register.yaml'));
 
         $response = $this->post('/api/v1/providers', [
+            'id' => 'example_provider',
             'name' => 'example',
             'description' => 'An example',
             'definition' => $definition,
@@ -31,22 +32,25 @@ class ProviderApiTest extends TestCase
 
         $response->assertStatus(200);
 
-        $providerId = $response->json()['id'];
 
 
-        $definition = $fs->get(base_path('/docs/consumer.json'));
+        $definition = $fs->get(base_path('/api/providers/register/consumers/consumer.json'));
 
-        $response = $this->post("/api/v1/providers/$providerId/consumers", [
+        $response = $this->post("/api/v1/providers/example_provider/consumers", [
+            'id' => 'example_consumer',
             'name' => 'consumer',
             'description' => 'An example of consumer',
             'definition' => $definition,
             'owner' => 'rpopuc',
             'tags' => 'example',
-            'provider_id' => $providerId,
+            'provider_id' => 'example_provider',
         ]);
+
 
         $response->assertStatus(201);
 
-        $response->getContent();
+        // Agora deveria executar isso
+        dump("prism mock -d http://app/api/v1/providers/example_provider.yaml");
+        dump("newman run --env-var 'url=http://localhost:4010' http://app/api/v1/providers/example_provider/consumers/example_consumer.json");
     }
 }

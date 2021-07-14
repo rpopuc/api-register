@@ -1,0 +1,80 @@
+swagger: "2.0"
+info:
+  description: ""
+  version: "1.0.0"
+  title: "Category Tree"
+  contact:
+    email: "boitata@leroymerlin.com.br"
+  license:
+    name: "Apache 2.0"
+    url: "http://www.apache.org/licenses/LICENSE-2.0.html"
+host: "leroy.test"
+basePath: "/api/boitata/v1/categories"
+tags:
+- name: "tree"
+  description: "Everything about Category Tree"
+  externalDocs:
+    description: "Find out more"
+    url: "https://www.leroymerlin.com.br"
+schemes:
+- "https"
+- "http"
+paths:
+  /tree:
+    get:
+      tags:
+      - "tree"
+      summary: "Get all categories"
+      description: ""
+      operationId: "listCategories"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      responses:
+        "200":
+          description: "successful operation"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/CategoryTree"
+definitions:
+  CategoryTree:
+    type: "object"
+    required:
+      - id
+      - name
+      - url
+      - content
+    properties:
+      id:
+        type: "string"
+      name:
+        type: "string"
+      url:
+        type: "string"
+        format: "uri"
+      content:
+        type: array
+        items:
+          $ref: "#/definitions/CategoryChild"
+  CategoryChild:
+    type: "object"
+    required:
+      - id
+      - name
+      - url
+      - hasChildren
+    properties:
+      id:
+        type: "string"
+      name:
+        type: "string"
+      url:
+        type: "string"
+        format: "uri"
+      hasChildren:
+        type: boolean
+externalDocs:
+  description: "Find out more about Swagger"
+  url: "http://swagger.io"

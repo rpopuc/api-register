@@ -54,13 +54,11 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "{{url}}/api/v1/providers/03711a77-ce2f-4d93-8193-5cf15fd5e28b",
+					"raw": "{{url}}/providers/03711a77-ce2f-4d93-8193-5cf15fd5e28b",
 					"host": [
 						"{{url}}"
 					],
 					"path": [
-						"api",
-						"v1",
 						"providers",
 						"03711a77-ce2f-4d93-8193-5cf15fd5e28b"
 					]

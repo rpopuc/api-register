@@ -25,9 +25,14 @@ class ConsumersController extends Controller
         return $consumer;
     }
 
-    public function show(Consumer $consumer)
+    public function show(Provider $provider, Consumer $consumer)
     {
-        //
+        return $consumer;
+    }
+
+    public function definition(Provider $provider, Consumer $consumer)
+    {
+        return $consumer->definition;
     }
 
     public function update(Request $request, Consumer $consumer)
