@@ -30,4 +30,7 @@ return [
         'region' => env('AWS_DEFAULT_REGION', 'us-east-1'),
     ],
 
+    'newman' => [
+        'url' => env('NEWMAN_URL', 'http://newman:3000/test')
+    ]
 ];

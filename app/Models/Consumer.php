@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-use App\Traits\Uuid;
+use App\Models\Provider;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -16,4 +16,14 @@ class Consumer extends Model
     protected $dates = ['deleted_at'];
     protected $casts = ['id' => 'string'];
     public $incrementing = false;
+
+    public function provider()
+    {
+        return $this->belongsTo(Provider::class);
+    }
+
+    public function belongTo(Provider $provider): bool
+    {
+        return $provider->id == $this->provider->id;
+    }
 }

@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use GuzzleHttp\Client;
 use App\Models\Consumer;
 use App\Models\Provider;
 use Illuminate\Http\Request;
+use App\Support\ConsumerTest;
+use App\Support\ProviderTest;
 use App\Support\OpenApiSpecification;
 
 class ProvidersController extends Controller
@@ -36,36 +37,31 @@ class ProvidersController extends Controller
 
     public function consumers(Provider $provider)
     {
-        return Consumer::all();
-        return Consumer::where('provider_id', $provider->id)->get();
+        return $provider->consumers;
     }
 
     public function testConsumer(Provider $provider, Consumer $consumer)
     {
-        $client = new Client;
-        $response = $client->get('http://newman:3000/test/example_provider/example_consumer');
-        $summary = json_decode($response->getBody()->getContents());
+        if (!$consumer->belongTo($provider)) {
+            abort(404);
+        }
+
+        $consumerTest = app(ConsumerTest::class);
 
         return response()->json([
             'provider' => $provider->id,
-            'consumer' => $consumer->id,
-            'summary' => $summary,
+            'summary' => $consumerTest->test($consumer),
         ]);
     }
 
-    public function test(Provider $provider, Consumer $consumer)
+    public function test(Provider $provider)
     {
-        $httpClient = new Client;
+        $providerTest = app(ProviderTest::class);
 
-        $consumers = Consumer::where('provider_id', $provider->id)->get();
-        foreach ($consumers as $consumer) {
-            $response = $httpClient->get("http://newman:3000/test/{$provider->id}/{$consumer->id}");
-            $summaries[$consumer->id] = json_decode($response->getBody()->getContents());
-        }
+        $summaries = $providerTest->test($provider);
 
         return response()->json([
             'provider' => $provider->id,
-            'consumer' => $consumer->id,
             'summaries' => $summaries ?? [],
         ]);
     }
