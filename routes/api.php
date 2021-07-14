@@ -10,8 +10,8 @@ Route::prefix('v1')->group(function() {
     Route::post('/providers/{provider}/consumers', [ConsumersController::class, 'store'])->name('registerConsumer');
     Route::get('/providers/{provider}/consumers/{consumer}.json', [ConsumersController::class, 'definition'])->name('getConsumerDefinition');
     Route::get('/providers/{provider}/consumers/{consumer}', [ConsumersController::class, 'show'])->name('showConsumer');
+    //Route::put('/providers/{provider}/consumers/{consumer}', [ProvidersController::class, 'update'])->name('updateProvider');
     Route::get('/providers/{provider}/consumers', [ProvidersController::class, 'consumers'])->name('listConsumers');
-
 
     Route::post('/providers', [ProvidersController::class, 'store'])->name('registerProvider');
     //Route::put('/providers', [ProvidersController::class, 'update'])->name('updateProvider');

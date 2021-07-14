@@ -42,7 +42,7 @@ Visit, for example:
 - Details of consumer `example_consumer`
     - https://register.local/api/v1/providers/example_provider/consumers/example_consumer
 
-- Test definition of consumer `example_consumer`
+- Definition of consumer `example_consumer`
     - https://register.local/api/v1/providers/example_provider/consumers/example_consumer.json
 
 - Testing consumer `example_consumer`
