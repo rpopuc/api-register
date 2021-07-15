@@ -1,12 +1,4 @@
-var express = require("express");
-var newman = require('newman');
-var app = express();
-
-app.listen(3000, () => {
-    console.log("Server running on port 3000");
-});
-
-const makeReport = (summary) => {
+module.exports = function (summary) {
     var result = {}
     var failures = []
 
@@ -44,29 +36,5 @@ const makeReport = (summary) => {
         }
     })
 
-    return JSON.stringify(result, null, 2)
+    return result
 }
-
-app.get("/test/:provider/:consumer", (req, res, next) => {
-    res.header('content-type', 'application/json;charset=UTF-8')
-    res.status(200);
-
-    const result = newman.run({
-        envVar: [
-            {
-                key: 'url',
-                value: "http://app/api/v1/mock"
-            }
-        ],
-        collection: `http://app/api/v1/providers/${req.params.provider}/consumers/${req.params.consumer}.json`
-    }, (err, summary) => {
-        if (err) { throw err }
-
-        res.write(
-            makeReport(summary)
-        )
-
-        res.end()
-    });
-
-});

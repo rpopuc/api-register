@@ -12,9 +12,11 @@ services:
       - "443:443"
 
   app:
-    image: rpopuc/php-fpm-nginx:7.4
-    volumes:
-      - ./:/var/www
+    image: api-register
+    # volumes:
+    #   - ./:/var/www/html
+      - .docker/data/app:/var/www/html/storage/database
+    #   - .env:/var/www/html/.env
     labels:
       - traefik.enable=true
       - traefik.http.routers.app_http.rule=Host(`${APP_DOMAIN}`)
@@ -22,21 +24,3 @@ services:
       - traefik.http.routers.app_http.middlewares=secure@file
       - traefik.http.routers.app.tls=true
 
-  postgres:
-    image: postgres:13
-    volumes:
-      - ./.docker/data/postgres:/var/lib/postgresql/data
-      - ./:/var/www
-    environment:
-      - POSTGRES_DB=${DB_DATABASE}
-      - POSTGRES_USER=${DB_USERNAME}
-      - POSTGRES_PASSWORD=${DB_PASSWORD}
-
-  newman:
-    image: vdespa/newman
-    volumes:
-      - ./src-node:/etc/newman
-    entrypoint: [""]
-    command: >
-      npm run server
-    tty: true

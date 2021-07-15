@@ -9,6 +9,7 @@ use App\Support\ConsumerTest;
 use App\Support\ProviderTest;
 use App\Support\OpenApiSpecification;
 
+
 class ProvidersController extends Controller
 {
     public function store(Request $request)

@@ -25,21 +25,19 @@ Route::prefix('v1')->group(function() {
     Route::get('/providers/{provider}/uris', [ProvidersController::class, 'uris'])->name('urisFromProvider');
 });
 
+if (!app()->runningInConsole()) {
+    foreach (Provider::all() as $provider) {
+        $api = new OpenApiSpecification;
+        $api->loadFromString($provider->definition);
 
-// Load all endpoints to mock
-foreach (Provider::all() as $provider) {
-    $api = new OpenApiSpecification;
-    $api->loadFromString($provider->definition);
+        foreach ($api->getRoutes() as $route) {
+            Route::match([$route->method], "v1/mock{$route->uri}", function () use ($api, $route) {
+                return response()->json($api->createFrom($route->def['responses'][200]['schema']));
+            });
 
-    foreach ($api->getRoutes() as $route) {
-        Route::match([$route->method], "v1/mock{$route->uri}", function() use ($api, $route) {
-            return response()->json($api->createFrom($route->def['responses'][200]['schema']));
-        });
-
-        Route::match([$route->method], "v1/def{$route->uri}", function() use ($api, $route) {
-            return response()->json($route->def);
-        });
+            Route::match([$route->method], "v1/def{$route->uri}", function () use ($api, $route) {
+                return response()->json($route->def);
+            });
+        }
     }
 }
-
-

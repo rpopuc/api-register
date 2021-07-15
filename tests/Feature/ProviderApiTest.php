@@ -32,8 +32,6 @@ class ProviderApiTest extends TestCase
 
         $response->assertStatus(200);
 
-
-
         $definition = $fs->get(base_path('/api/providers/register/consumers/consumer.json'));
 
         $response = $this->post("/api/v1/providers/example_provider/consumers", [
